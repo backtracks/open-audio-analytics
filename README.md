@@ -4,7 +4,7 @@ Open audio analytics protocol specification. A unified spec for providing a comm
 
 ## How does it work?
 
-The simple protocol defines a common data interchange format and behaviors to allow a variety of mobile and desktop applications to emit/publish audio analytics related events over the internet. The data sent in the protocol is not sensitive data (it is still recommended to send data over a `HTTPS` connection), yet is a sufficient amount of data for analytics services conforming/consuming to the protocol to provide analytics services based on that data.
+The simple protocol defines a common data interchange format and behaviors to allow a variety of mobile and desktop applications to emit/publish podcast analytics related events over the internet. Applications/clients may send one or more events in one call which enables queuing and batching. The data sent in the protocol is not sensitive data (it is still recommended to send data over a `HTTPS` connection), yet is a sufficient amount of data for analytics services conforming/consuming to the protocol to provide analytics services based on that data.
 
 ## Example Data
 ```json
@@ -31,7 +31,7 @@ The simple protocol defines a common data interchange format and behaviors to al
 
 ## Design Considerations
 
-The protocol/specification is designed to have the ability to be efficiently utilized in both clientside and serverside scenarios and leverage pervasive and known technologies and standards. Some of the efficiency comes from aggregate network traffic at scale, limited code footprint, and the familiarity with concepts originating in specs like `HTML`, `HTML5`, etc.
+The protocol/specification is designed to have the ability to be efficiently utilized in both clientside and serverside scenarios and leverage pervasive and known technologies and standards. Some of the efficiency comes from aggregate network traffic at scale, limited code footprint, and the familiarity with concepts originating in specs like `HTML`, `HTML5`, etc. The protocol/specification's ability to allow queuing and batching of events allows systems to react to a variety of scenarios including intermitten internet connections.
 
 At a large scale shortening terms like `properties` to `props` in the protocol results in less network data transfer as well as fewer characters in source code, logs, etc., but human readability and other considerations were made for some of the property names that are not quite so terse.
 
@@ -60,14 +60,14 @@ Second level properties are children of the property `props`. Custom properties 
 | currentTime | number/double | Yes | Current time of the client/user in media playback in seconds. | Yes |
 | duration | number/double | Yes | Length of in media in seconds. | Yes |
 | explicit | boolean | No | If true, the media contains explicit content. | Yes |
-| loop | boolean | Yes | Indication of if the media is set to loop on the end of playback. | Yes |
-| media_ids | array(`Media Id Type`) | No | Array of `Media Id Type`. See `Media Id Type` for a type definition | No |
+| loop | boolean | No | Indication of if the media is set to loop on the end of playback. | Yes |
+| media_ids | array(`Media Id Type`) | No | Array of `Media Id Type`. See `Media Id Type` for a type definition. | No |
 | muted | boolean | Yes | Indication of if the media is muted. For example the usual volume setting of the media may be at 1 (100%), however the client has the media muted. | Yes |
-| networkState | integer/short | Yes | An integer in the set of 0-3 that indicates the current network state. | Yes |
+| networkState | integer/short | No | An integer in the set of 0-3 that indicates the current [`network state`](https://dev.w3.org/html5/spec-preview/media-elements.html#network-states). | Yes |
 | paused | boolean | Yes | Indication of if the media is paused. | Yes |
 | playbackRate | number/double | Yes | A number like 1 or 1.5 that indicates the relative speed of playback of the media where 1 = normal speed and values above or below 1 indicate a speed/rate change. Zero (0) is not a valid value. | Yes |
 | publisher | string(255) | No | Name of the publisher of the media/work related to the request (this may be different than the author) | No |
-| readyState | integer/short | Yes | An integer in the set of 0-4 that indicates the current media readiness state for playback. | Yes |
+| readyState | integer/short | No | An integer in the set of 0-4 that indicates the current media [`readiness state`](https://dev.w3.org/html5/spec-preview/media-elements.html#ready-states) for playback. | Yes |
 | title | string(255) | No | Title of the media/work | No |
 | user_id | string(255) | No | Unique identifier for the user performing the action related to the request. This identifier is typically unique to an application or organization. | No |
 | volume | number/double | Yes | A number between 0 and 1 (where 0 = 0% and 1 = 100%) that indicates the volume setting of the media. Example: .75 = 75% volume | Yes |
