@@ -270,3 +270,5 @@ Samples events in their unencoded format are below:
 
 
 The specification described on this page or document is available under the Apache 2.0 License. This has been another Backtracks, Inc. & Friends joint.
+
+![open-audio-analytics](https://ga-beacon.appspot.com/UA-68875634-2/open-audio-analytics/README?pixel)
